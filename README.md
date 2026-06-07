@@ -55,7 +55,9 @@ After thorough evaluation, the OpenWeather API was selected as the sole data sou
 
 > *As seen in the evidence screenshot below, the Spark job remained stuck in the "Submitted" state for nearly 3 hours, and despite waiting for many more hours beyond what is shown, the servers never allocated the resources to finish the job. Because model training (`train_models.py`) strictly depends on reading from the offline Feature Store, full end-to-end production execution is currently blocked by this third-party server delay. Despite this external vendor bottleneck, the pipeline architecture, ML algorithms, and API/Dashboard logic are fully implemented and ready for execution the moment the Hopsworks servers clear their backlog.*
 
-![Hopsworks Server Delay Evidence](Hopsworks%20ss.png)
+<p align="center">
+  <img src="Hopsworks%20ss.png" alt="Hopsworks Server Delay Evidence" width="800">
+</p>
 
 **GitHub Repository Secrets Configuration**
 Additionally, please note that all necessary API keys (OpenWeather and Hopsworks) have been successfully configured as secure GitHub Repository Secrets. This allows the automated GitHub Actions CI/CD pipelines to execute autonomously without any manual credential configuration required by the evaluator.
