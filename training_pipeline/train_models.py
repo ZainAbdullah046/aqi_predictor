@@ -1,11 +1,4 @@
-"""
-train_models.py
----------------
-Loads features from Hopsworks, trains multiple models, returns them.
 
-Feature columns match exactly what engineer_features.py produces.
-Target: 'aqi' (OpenWeather scale 1–5)
-"""
 
 import sys
 import os
@@ -25,7 +18,6 @@ load_dotenv()
 logger = get_logger(__name__)
 
 def get_training_data() -> Tuple[pd.DataFrame, Any]:
-    """Fetch all features from Hopsworks Feature Store."""
     try:
         project = hopsworks.login(
             project=HOPSWORKS_PROJECT,
@@ -42,7 +34,6 @@ def get_training_data() -> Tuple[pd.DataFrame, Any]:
         raise
 
 def prepare_data(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
-    """Clean and split into train/test (80/20, time-ordered)."""
     required = FEATURE_COLS + [TARGET_COL]
     df = df.dropna(subset=required).copy()
     

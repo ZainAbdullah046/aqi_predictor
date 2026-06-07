@@ -1,18 +1,4 @@
-"""
-engineer_features.py
---------------------
-Takes raw DataFrame from fetch_data.py and adds:
-  - Time-based features  : hour, day, month
-  - AQI change rate      : aqi_change_rate (diff from previous row)
-  - Rolling average      : rolling_avg_24
-  - AQI category label   : based on OpenWeather 1-5 scale
-  - Pollution ratio      : pm25_pm10_ratio (PM2.5 / PM10)
 
-Removed (not needed):
-  - is_weekend           : redundant with day
-  - aqi_lag_1/3/6/24    : unnecessary complexity
-  - rolling_avg_3/6      : rolling_avg_24 is sufficient
-"""
 
 import sys
 import os
@@ -25,7 +11,6 @@ from config import get_logger, AQI_LABELS
 logger = get_logger(__name__)
 
 def aqi_category(aqi: int) -> str:
-    """Map OpenWeather AQI (1-5) to descriptive label."""
     return AQI_LABELS.get(int(aqi), "Unknown")
 
 def engineer_features(df: pd.DataFrame) -> pd.DataFrame:

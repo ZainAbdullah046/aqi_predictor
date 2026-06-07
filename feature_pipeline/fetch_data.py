@@ -1,12 +1,4 @@
-"""
-fetch_data.py
--------------
-Fetches Air Pollution data for Delhi from OpenWeatherMap API.
 
-Two modes:
-  1. fetch_current()
-  2. fetch_historical(days)
-"""
 
 import sys
 import os

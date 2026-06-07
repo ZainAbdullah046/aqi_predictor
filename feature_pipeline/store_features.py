@@ -1,13 +1,4 @@
-"""
-store_features.py
------------------
-Hourly pipeline entry point (triggered by GitHub Actions every hour).
 
-Steps:
-  1. Fetch the latest single reading from OpenWeather
-  2. Engineer features
-  3. Upsert into Hopsworks Feature Store (aqi_features_delhi, version=1)
-"""
 
 import sys
 import os

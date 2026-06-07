@@ -16,14 +16,10 @@ FEATURE_GROUP_VERSION = 1
 MODEL_NAME = "aqi_predictor_delhi"
 MODEL_VERSION = 1
 
-# Features
+# Features for training, SHAP, dashboard, and API by seeing the  correlation matrix
 FEATURE_COLS = [
-    "co", "no", "no2", "o3", "so2", "pm25", "pm10", "nh3",
-    "hour", "day", "month", "is_weekend",
-    "aqi_change_rate",
-    "aqi_lag_1", "aqi_lag_3", "aqi_lag_6", "aqi_lag_24",
-    "rolling_avg_3", "rolling_avg_6", "rolling_avg_24",
-    "pm25_pm10_ratio"
+    "co", "no2", "so2", "pm25", "pm10",
+    "pm25_pm10_ratio", "rolling_avg_24"
 ]
 TARGET_COL = "aqi"
 

@@ -10,6 +10,7 @@ uvicorn
 joblib
 shap
 matplotlib
+seaborn
 pyarrow
 jupyter
 notebook

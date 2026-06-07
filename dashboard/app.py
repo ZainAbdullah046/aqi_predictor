@@ -66,12 +66,9 @@ def predict_next_3_days(model: Any, df: pd.DataFrame) -> List[float]:
     latest = df.tail(1).copy()
     preds = []
     for day_offset in range(1, 4):
-        row = latest[FEATURE_COLS].copy()
-        row["day"] = int((row["day"].values[0] + day_offset) % 7)
-        row["hour"] = 12
+        row = latest[FEATURE_COLS].copy().fillna(0)
         if preds:
-            row["aqi_lag_1"] = preds[-1]
-            row["rolling_avg_3"] = np.mean(preds[-3:] if len(preds) >= 3 else preds)
+            row["rolling_avg_24"] = float(np.mean(preds))
         pred = float(np.clip(model.predict(row)[0], 1, 5))
         preds.append(round(pred, 2))
     return preds

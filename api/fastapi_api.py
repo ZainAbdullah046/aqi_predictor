@@ -1,8 +1,4 @@
-"""
-api/fastapi_api.py
-------------------
-REST API for AQI predictions for Delhi (FastAPI version).
-"""
+
 
 import os
 import sys
@@ -29,7 +25,6 @@ ml_models = {}
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Load model + feature data from Hopsworks on startup."""
     try:
         logger.info("Initializing Hopsworks connection...")
         project = hopsworks.login(
@@ -123,12 +118,9 @@ def predict() -> Any:
 
         preds = []
         for day_offset in range(1, 4):
-            row = latest[FEATURE_COLS].copy()
-            row["day"] = int((row["day"].values[0] + day_offset) % 7)
-            row["hour"] = 12
+            row = latest[FEATURE_COLS].copy().fillna(0)
             if preds:
-                row["aqi_lag_1"] = preds[-1]
-                row["rolling_avg_3"] = float(np.mean(preds[-3:] if len(preds) >= 3 else preds))
+                row["rolling_avg_24"] = float(np.mean(preds))
             pred = float(np.clip(model.predict(row)[0], 1, 5))
             preds.append(round(pred, 2))
 

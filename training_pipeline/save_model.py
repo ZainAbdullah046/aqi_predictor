@@ -1,15 +1,4 @@
-"""
-save_model.py
--------------
-Full training pipeline entry point (triggered by GitHub Actions daily).
 
-Steps:
-  1. Load data from Hopsworks Feature Store
-  2. Train all models
-  3. Evaluate and pick best
-  4. Generate SHAP plot
-  5. Save best model to Hopsworks Model Registry
-"""
 
 import sys
 import os
@@ -33,7 +22,6 @@ load_dotenv()
 logger = get_logger(__name__)
 
 def save_best_model(model: Any, metrics: Dict[str, float], model_algo_name: str, project: Any) -> None:
-    """Upload the best model + SHAP plot to Hopsworks Model Registry."""
     try:
         mr = project.get_model_registry()
 
@@ -68,23 +56,21 @@ def save_best_model(model: Any, metrics: Dict[str, float], model_algo_name: str,
         raise
 
 if __name__ == "__main__":
-    logger.info("═══════════════════════════════════════")
-    logger.info("      Daily Training Pipeline          ")
-    logger.info("═══════════════════════════════════════")
+    logger.info("Daily Training Pipeline")
 
     try:
-        logger.info("[1/5] Loading data from Feature Store ...")
+        logger.info("Loading data from Feature Store ...")
         df, project = get_training_data()
 
-        logger.info("[2/5] Preparing train/test split ...")
+        logger.info("Preparing train/test split ...")
         X_train, X_test, y_train, y_test = prepare_data(df)
 
-        logger.info("[3/5] Training models ...")
+        logger.info("Training models ...")
         rf = train_random_forest(X_train, y_train)
         gb = train_gradient_boosting(X_train, y_train)
         rdg = train_ridge(X_train, y_train)
 
-        logger.info("[4/5] Evaluating models ...")
+        logger.info("Evaluating models ...")
         results = [
             evaluate_model(rf, X_test, y_test, "RandomForest"),
             evaluate_model(gb, X_test, y_test, "GradientBoosting"),
@@ -97,7 +83,7 @@ if __name__ == "__main__":
 
         generate_shap_plot(best_model, X_test, best_info["model_name"])
 
-        logger.info("[5/5] Saving best model to Hopsworks ...")
+        logger.info("Saving best model to Hopsworks ...")
         save_best_model(best_model, best_info, best_info["model_name"], project)
 
         logger.info("Daily training pipeline complete!")

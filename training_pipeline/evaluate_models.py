@@ -1,8 +1,4 @@
-"""
-evaluate_models.py
-------------------
-Evaluates trained models and includes SHAP feature importance.
-"""
+
 
 import sys
 import os
@@ -28,13 +24,12 @@ except ImportError:
     logger.warning("shap not installed — skipping SHAP plots (pip install shap)")
 
 def evaluate_model(model: Any, X_test: pd.DataFrame, y_test: pd.Series, model_name: str) -> Dict[str, Any]:
-    """Compute RMSE, MAE, R² and print results."""
     predictions = model.predict(X_test)
     rmse = float(np.sqrt(mean_squared_error(y_test, predictions)))
     mae = float(mean_absolute_error(y_test, predictions))
     r2 = float(r2_score(y_test, predictions))
 
-    logger.info("── %s ──", model_name)
+    logger.info("%s", model_name)
     logger.info("   RMSE : %.4f", rmse)
     logger.info("   MAE  : %.4f", mae)
     logger.info("   R²   : %.4f", r2)
@@ -42,14 +37,12 @@ def evaluate_model(model: Any, X_test: pd.DataFrame, y_test: pd.Series, model_na
     return {"model_name": model_name, "rmse": rmse, "mae": mae, "r2": r2}
 
 def pick_best_model(models_dict: Dict[str, Any], results: List[Dict[str, Any]]) -> Tuple[Any, Dict[str, Any]]:
-    """Return model with lowest RMSE."""
     best_info = min(results, key=lambda x: x["rmse"])
     best_name = best_info["model_name"]
-    logger.info("🏆 Best Model: %s  (RMSE: %.4f, R²: %.4f)", best_name, best_info['rmse'], best_info['r2'])
+    logger.info("Best Model: %s  (RMSE: %.4f, R²: %.4f)", best_name, best_info['rmse'], best_info['r2'])
     return models_dict[best_name], best_info
 
 def generate_shap_plot(model: Any, X_test: pd.DataFrame, model_name: str, save_path: str = "shap_plot.png") -> None:
-    """Generate SHAP summary plot and save as PNG."""
     if not SHAP_AVAILABLE:
         logger.warning("Skipping SHAP — library not installed")
         return
