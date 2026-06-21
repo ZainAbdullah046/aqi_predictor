@@ -2,7 +2,7 @@ requests
 pandas
 numpy
 scikit-learn
-hopsworks==4.7.*
+hopsworks==5.0.*
 python-dotenv
 streamlit
 fastapi
