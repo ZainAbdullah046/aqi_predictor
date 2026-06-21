@@ -53,7 +53,7 @@ def backfill(days: int = 365) -> None:
             online_enabled=True,
             event_time="unix_time"
         )
-        fg.insert(df_eng, write_options={"wait_for_job": False})
+        fg.insert(df_eng, write_options={"wait_for_job": True})
 
         logger.info("Backfill complete! %d rows stored in Hopsworks.", len(df_eng))
         logger.info("Date range: %s  ->  %s", df_eng['timestamp'].min(), df_eng['timestamp'].max())

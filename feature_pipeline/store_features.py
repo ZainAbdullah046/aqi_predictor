@@ -10,7 +10,7 @@ import pandas as pd
 from typing import Any
 from dotenv import load_dotenv
 
-from fetch_data import fetch_current
+from fetch_data import fetch_historical
 from engineer_features import engineer_features
 from config import get_logger, HOPSWORKS_PROJECT, FEATURE_GROUP_NAME, FEATURE_GROUP_VERSION, CITY
 
@@ -59,8 +59,8 @@ def store_features(df: pd.DataFrame, fs) -> None:
 if __name__ == "__main__":
     logger.info("─── Hourly Feature Pipeline ───")
     try:
-        logger.info("Step 1: Fetching current data ...")
-        df_raw = fetch_current()
+        logger.info("Step 1: Fetching recent data for context (last 2 days) ...")
+        df_raw = fetch_historical(days=2)
 
         logger.info("Step 2: Engineering features ...")
         df_eng = engineer_features(df_raw)
