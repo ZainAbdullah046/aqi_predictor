@@ -50,7 +50,7 @@ def get_or_create_feature_group(fs) -> Any:
 def store_features(df: pd.DataFrame, fs) -> None:
     try:
         fg = get_or_create_feature_group(fs)
-        fg.insert(df, write_options={"wait_for_job": False})
+        fg.insert(df, write_options={"wait_for_job": True})
         logger.info("Inserted %d row(s) into Hopsworks Feature Store!", len(df))
     except Exception as e:
         logger.error("Failed to store features: %s", e)

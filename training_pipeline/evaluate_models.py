@@ -72,7 +72,7 @@ if __name__ == "__main__":
     from train_models import train_random_forest, train_gradient_boosting, train_ridge
 
     try:
-        df, project = get_training_data()
+        df, project, _ = get_training_data()
         X_train, X_test, y_train, y_test = prepare_data(df)
 
         rf = train_random_forest(X_train, y_train)

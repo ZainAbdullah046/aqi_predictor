@@ -26,6 +26,20 @@ This project successfully fulfills 100% of the assigned rubric requirements:
 - **Evaluation metrics**: Models are automatically evaluated using RMSE, MAE, and R² scores (`evaluate_models.py`).
 - **Model Registry**: The absolute best-performing model is serialized and stored in the Hopsworks Model Registry (`save_model.py`).
 
+**Initial Model Training Results:**
+- **🌲 1. Random Forest**
+  - RMSE: `0.2798`
+  - MAE: `0.1112`
+  - R²: `80.61%`
+- **🚀 2. Gradient Boosting (Winner 🏆)**
+  - RMSE: `0.2687`
+  - MAE: `0.1186`
+  - R²: `82.11%`
+- **📉 3. Ridge Regression**
+  - RMSE: `0.4587`
+  - MAE: `0.3653`
+  - R²: `47.87%`
+
 ### 4. Automated CI/CD Pipeline
 - **Hourly Automation**: GitHub Actions runs the feature pipeline every hour (`feature_pipeline.yml`).
 - **Daily Automation**: GitHub Actions runs the training pipeline daily to update the model on fresh data (`training_pipeline.yml`).

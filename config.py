@@ -14,7 +14,7 @@ HOPSWORKS_PROJECT = "aqi_10pearlproject"
 FEATURE_GROUP_NAME = "aqi_features_delhi"
 FEATURE_GROUP_VERSION = 1
 MODEL_NAME = "aqi_predictor_delhi"
-MODEL_VERSION = 1
+MODEL_VERSION = 15
 
 # Features for training, SHAP, dashboard, and API by seeing the  correlation matrix
 FEATURE_COLS = [
